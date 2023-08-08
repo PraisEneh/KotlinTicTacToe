@@ -1,10 +1,13 @@
 package com.example.tictactoe
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+
 
 class TicTacToeActivity : AppCompatActivity() {
     private var currentTurn = 'X'
@@ -19,9 +22,13 @@ class TicTacToeActivity : AppCompatActivity() {
         mainMenuButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            isCollinMode = false
             finish()
         }
 
+
+        val hello = MediaPlayer.create(this, R.raw.hello)
+        val logCatfish = MediaPlayer.create(this, R.raw.log_catfish)
 
         // Initialize game board
         for (i in 0..2) {
@@ -43,10 +50,24 @@ class TicTacToeActivity : AppCompatActivity() {
 
         for (i in buttons.indices) {
             buttons[i].setOnClickListener {
-                if ((it as Button).text == "----" && !isGameOver()) {
+                if ((it as Button).text == "-" && !isGameOver()) {
                     it.text = currentTurn.toString()
                     board[i / 3][i % 3] = currentTurn
-                    currentTurn = if (currentTurn == 'X') 'O' else 'X'
+                    if (currentTurn == 'X') {
+                        currentTurn = 'O'
+                        it.background = resources.getDrawable(R.drawable.button_border_x)
+                        if(isCollinMode) {
+                            it.foreground = resources.getDrawable(R.drawable.catfish)
+                            logCatfish.start()
+                        }
+                    } else {
+                        currentTurn = 'X'
+                        it.background = resources.getDrawable(R.drawable.button_border_o)
+                        if (isCollinMode) {
+                            it.foreground = resources.getDrawable(R.drawable.collin)
+                            hello.start()
+                        }
+                    }
                 }
                 checkForWin(buttons)
             }
@@ -121,7 +142,15 @@ class TicTacToeActivity : AppCompatActivity() {
         when (winner) {
             'X', 'O' -> {
                 val intent = Intent(this, EndGameActivity::class.java).apply {
-                    putExtra("winner", winner.toString())
+                    if(isCollinMode) {
+                        if(winner == 'X') {
+                            putExtra("winner", "Catfish")
+                        }
+                        else {
+                            putExtra("winner", "Collin")
+                        }
+                    }
+                    else { putExtra("winner", winner.toString()) }
                 }
                 startActivity(intent)
                 return true
@@ -144,7 +173,7 @@ class TicTacToeActivity : AppCompatActivity() {
         }
 
         for (button in buttons) {
-            button.text = "----"
+            button.text = "-"
         }
 
         currentTurn = 'X'

@@ -1,2 +1,2 @@
 # Kotlin Tic Tac Toe  
-## By Issac and Praise  
+## By Isaac and Praise  
