@@ -1,6 +1,7 @@
 package com.example.tictactoe
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -18,6 +19,10 @@ class EndGameActivity : AppCompatActivity() {
         val winner = intent.getStringExtra("winner")
         if (winner != null) {
             endGameMessage.text = "$winner won"
+            if (isCollinMode && winner == "Collin") {
+                val howDoesThatMakeYouFeel = MediaPlayer.create(this, R.raw.how_does_that_make_you_feel)
+                howDoesThatMakeYouFeel.start()
+            }
         } else {
             endGameMessage.text = "It's a tie"
         }
@@ -30,6 +35,7 @@ class EndGameActivity : AppCompatActivity() {
         mainMenuButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            isCollinMode = false
         }
     }
 }

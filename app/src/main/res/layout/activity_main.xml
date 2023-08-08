@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -12,16 +13,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:text="Tic Tac Toe"
+        android:textColor="@color/light_mode_text"
         android:textSize="32sp" />
 
     <TextView
         android:id="@+id/names_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_text"
-        android:layout_marginTop="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="By: Isaac Al-Abad and Praise Chinedu-Eneh"
+        android:textColor="@color/light_mode_text"
         android:textSize="20sp" />
 
     <Button
@@ -30,6 +33,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="70dp"
         android:text="Start Game" />
+
+    <Switch
+        android:id="@+id/collin_mode_switch"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/start_game_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Collin Mode"
+        android:textColor="@color/white" />
+
 </RelativeLayout>
